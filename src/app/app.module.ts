@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MediaItem } from '../components/media-item/media-item.component';
+import { FavoriteDirective } from '../directives/favorite.directive';
+import { CategoryListPipe } from '../pipes/category-list.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MediaItem,
+    FavoriteDirective,
+    CategoryListPipe
   ],
   imports: [
     BrowserModule,
