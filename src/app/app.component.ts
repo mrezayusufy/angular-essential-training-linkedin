@@ -1,12 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IMedia } from '../interfaces/imedia';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-reyu';
+  form!: FormGroup;
+
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      medium: new FormControl('Movies'),
+      name: new FormControl('name', [Validators.required, Validators.pattern('[\\w\\-\\s\\/]+')]),
+      category: new FormControl(''),
+      year: new FormControl('', [Validators.required ,this.yearValidator])
+    });
+  }
+  onSubmit(mediaForm: any) {
+    console.log("media form",mediaForm)
+  }
+
+ 
+  yearValidator(control: FormControl): { [key: string]: boolean } | null {
+    const year = control.value;
+    const minYear = 1900;
+    const maxYear = new Date().getFullYear();
+  
+    if (!year || /^\s*$/.test(year)) {
+      return null; // Validation passes if value is empty or whitespace
+    }
+  
+    const parsedYear = parseInt(year, 10);
+  
+    if (parsedYear <= minYear || parsedYear >= maxYear) {
+      return { year: true }; // Validation failed
+    }
+  
+    return null; // Validation passes
+  }
+  
   onMediaItemDelete(event: any){
 
   }

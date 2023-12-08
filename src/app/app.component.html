@@ -6,6 +6,45 @@
     {{mediaItems | categoryList}}
     </div>
   </header>
+  <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" class="mb-5">
+    <ul class="flex flex-col gap-6">
+      <label  class="grid grid-cols-3 grid-flow-col gap-4 relative capitalize items-center">
+        <span class="col-span-1">name:</span>
+        <input type="text" name="name" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="name">
+        <small *ngIf="form.get('name')?.hasError('pattern')" class="absolute -bottom-5 right-0 text-red-500" >
+          Name has invalid character
+        </small>
+      </label>
+      <label for="medium" class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
+        <span>medium</span>
+        <select name="medium" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="medium">
+          <option value="Movies">Movies</option>
+          <option value="Series">Series</option>
+        </select>
+        
+      </label> 
+      <label class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
+        <span class="col-span-1">year</span>
+        <input type="number" name="year" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="year"/>
+        <small *ngIf="form.get('year')?.hasError('year')" class="absolute -bottom-5 right-0 text-red-500" >
+          Must be between 1900 to 2023
+        </small>
+      </label>
+      <label class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
+        <span class="col-span-1">category</span>
+        <select name="category" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="category">
+          <option selected>select movie</option>
+          <option value="Action">Action</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+        </select>
+      </label>
+      <button type="submit" [disabled]="!form.valid" class="py-3 px-2 disabled:bg-slate-400 capitalize font-semibold bg-green-300 rounded-md transition-all ease-in-out duration-500 text-slate-800 hover:ring-4 hover:ring-green-400/40">submit</button>
+    </ul>
+  </form>
   <div class="flex flex-wrap gap-5">
     <media-item  
     *ngFor="let item of  mediaItems" 

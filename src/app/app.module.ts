@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MediaItem } from '../components/media-item/media-item.component';
 import { FavoriteDirective } from '../directives/favorite.directive';
 import { CategoryListPipe } from '../pipes/category-list.pipe';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { CategoryListPipe } from '../pipes/category-list.pipe';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
