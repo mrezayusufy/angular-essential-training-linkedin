@@ -2,7 +2,7 @@
 <main class="main flex flex-col">
   <header class="mt-10">
     <h1 class="text-xl font-bold text-center">Categories</h1>
-    <div class="flex bg-red-200 rounded-full px-6 py-3 my-5">
+    <div class="flex bg-amber-400 rounded-full px-6 py-3 my-5">
     {{mediaItems | categoryList}}
     </div>
   </header>
@@ -11,9 +11,11 @@
       <label  class="grid grid-cols-3 grid-flow-col gap-4 relative capitalize items-center">
         <span class="col-span-1">name:</span>
         <input type="text" name="name" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="name">
-        <small *ngIf="form.get('name')?.hasError('pattern')" class="absolute -bottom-5 right-0 text-red-500" >
-          Name has invalid character
-        </small>
+        @if(form.get('name')?.hasError('pattern')){
+          <small class="absolute -bottom-5 right-0 text-red-500" >
+            Name has invalid character
+          </small>
+        }
       </label>
       <label for="medium" class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
         <span>medium</span>
@@ -23,12 +25,14 @@
         </select>
         
       </label> 
-      <label class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
+      <label class="grid grid-flow-col relative grid-cols-3 gap-4 items-center capitalize">
         <span class="col-span-1">year</span>
-        <input type="number" name="year" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="year"/>
-        <small *ngIf="form.get('year')?.hasError('year')" class="absolute -bottom-5 right-0 text-red-500" >
-          Must be between 1900 to 2023
-        </small>
+        <input type="text" class="py-3 col-span-2 px-2 rounded-md ring-2 ring-slate-400/40" formControlName="year"/>
+        @if(form.get('year')?.hasError('invalidYear')){
+          <small class="absolute -bottom-5 right-0 text-red-500" >
+            Must be between 1900 to 2023
+          </small>
+        }
       </label>
       <label class="grid grid-flow-col grid-cols-3 gap-4 items-center capitalize">
         <span class="col-span-1">category</span>
@@ -46,10 +50,13 @@
     </ul>
   </form>
   <div class="flex flex-wrap gap-5">
-    <media-item  
-    *ngFor="let item of  mediaItems" 
-    [media]="item" 
-    (delete)="onMediaItemDelete($event)"/>
+    @for (media of mediaItems; track $index) {
+      <media-item
+      [media]="media" 
+      (delete)="onMediaItemDelete($event)"/>
+    } @empty {
+      <div>no item...</div>
+    }
   </div>
 </main>
 
