@@ -6,7 +6,7 @@ import { IMedia } from "../../interfaces/imedia";
     templateUrl: './media-item.component.html',
     styleUrl: './media-item.component.css'
 })
-export class MediaItem{
+export class MediaItemComponent{
   @Input() media!: IMedia;
   
   name="The redemption";
