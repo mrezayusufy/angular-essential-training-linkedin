@@ -3,15 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MediaItem } from '../components/media-item/media-item.component';
+import { MediaItemComponent } from '../components/media-item/media-item.component';
 import { FavoriteDirective } from '../directives/favorite.directive';
 import { CategoryListPipe } from '../pipes/category-list.pipe';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MediaFormComponent } from '../components/media-form/media-form.component';
+import { MediaListComponent } from '../components/media-list/media-list.component';
+import { lookupList, lookupToken } from '../providers';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MediaItem,
+    MediaItemComponent,
+    MediaFormComponent,
+    MediaListComponent,
     FavoriteDirective,
     CategoryListPipe
   ],
@@ -21,7 +26,9 @@ import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: lookupToken, useValue: lookupList}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

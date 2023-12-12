@@ -1,0 +1,15 @@
+<header class="mt-10 flex flex-col">
+    <h1 class="text-2xl font-bold text-center">Categories</h1>
+    <div class="flex bg-amber-400 rounded-full px-6 py-3 my-5">
+        {{mediaItems | categoryList}}
+    </div>
+</header>
+<div class="flex flex-wrap gap-5">
+    @for (media of mediaItems; track $index) {
+      <media-item
+      [media]="media" 
+      (delete)="onMediaItemDelete(media)"/>
+    } @empty {
+      <div>no item...</div>
+    }
+</div>
